@@ -1,0 +1,20 @@
+{
+  "name": "democracy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.0.0",
+    "moment": "^2.24.0",
+    "mysql": "^2.17.1",
+    "set-interval-async": "1.0.26",
+    "socks-proxy-agent": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
