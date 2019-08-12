@@ -2,6 +2,7 @@
   "name": "Server Configuration",
   "about": "Conf",
   "commands": [
-    "about"
+    "about",
+    "debug"
   ]
 }
