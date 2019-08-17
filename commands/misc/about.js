@@ -16,6 +16,18 @@ module.exports = (msg, command, args) => {
       {
         "name": "Owner",
         "value": "Darth Maul#2237"
+      },
+      {
+        "name": "Support Server",
+        "value": "https://discord.gg/Hg4vaKs"
+      },
+      {
+        "name": "Server Count",
+        "value": msg.client.guilds.size + ' democratic servers!'
+      },
+      {
+        "name": "Bot Invite",
+        "value": "[Click here to invite me to your server!](https://discordapp.com/api/oauth2/authorize?client_id=610299806123819018&permissions=76800&scope=bot)"
       }
     ]
   };

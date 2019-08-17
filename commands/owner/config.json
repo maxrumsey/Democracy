@@ -1,5 +1,7 @@
 {
   "name": "Bot Configuration",
   "about": "Conf",
-  "commands": []
+  "commands": [
+    "eval"
+  ]
 }

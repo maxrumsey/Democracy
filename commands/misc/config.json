@@ -3,6 +3,7 @@
   "about": "Conf",
   "commands": [
     "about",
-    "debug"
+    "debug",
+    "help"
   ]
 }

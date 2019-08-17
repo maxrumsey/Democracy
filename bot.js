@@ -9,6 +9,7 @@ const framework = require('./framework/');
 
 Client.on('message', framework.handlers.message);
 Client.on('ready', framework.handlers.ready);
+Client.on('guildCreate', framework.handlers.join);
 Client.on('error', e => {
   console.log(e);
 })
@@ -18,14 +19,14 @@ framework.db()
     Client.login(process.env.TOKEN, (e) => {
       if (e) {
         console.log(e);
-        console.log('A fatal error occured. Exiting').
+        console.log('A fatal error occured. Exiting');
         process.exit(0);
       }
       console.log(1)
     });
   })
   .catch(e => {
-    console.log(e);
-    console.log('A fatal error occured. Exiting').
+    console.error(e);
+    console.log('A fatal error occured. Exiting');
     process.exit(0);
   })
