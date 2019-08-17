@@ -1,6 +1,10 @@
 # Democracy Bot
 What is Democracy Bot? Democracy Bot is a bot that aims to make Discord Servers more democratic and transparent through allowing anyone to submit rules to be voted on.
 
+|Support Server|Invite Link|
+|---|---|
+|https://discord.gg/Hg4vaKs|[Invite Link](https://discordapp.com/api/oauth2/authorize?client_id=610299806123819018&permissions=76800&scope=bot)|
+
 ## Commands
 * d!setChannel
 Set the channel where the bot posts rules or votes.  [Admin Use Only]
