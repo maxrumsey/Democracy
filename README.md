@@ -9,6 +9,9 @@ eg: d!setChannel vote #vote_for_rules_here
 * d!setConfig
 Change a configuration value.  [Admin Use Only]
 d!setConfig
+* d!setup
+Setup and configure the bot for first-time use.  [Admin Use Only]
+d!setup
 * d!about
 View information about the bot.
 d!about
