@@ -1,4 +1,6 @@
 const { setIntervalAsync } = require('set-interval-async/dynamic')
+const DBL = require("dblapi.js");
+
 exports.message = msg => {
   require('./index.js').commands.handle(msg);
 }
@@ -10,6 +12,15 @@ exports.ready = () => {
     async () => {await require('./index.js').checker(global.client)},
     1000
   )
+
+  if (process.env.DBLAPI) {
+    const dbl = new DBL(process.env.DBLAPI, global.client);
+
+    dbl.on('error', e => {
+     console.log(`Error Posting Server Count`);
+     console.error(e);
+    })
+  }
 }
 exports.join = (guild) => {
   let defaultChannel = "";

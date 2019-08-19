@@ -22,7 +22,6 @@ framework.db()
         console.log('A fatal error occured. Exiting');
         process.exit(0);
       }
-      console.log(1)
     });
   })
   .catch(e => {

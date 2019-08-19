@@ -63,7 +63,7 @@ Selfhosting Democracy Bot is easy. It requires a MySQL database running.
 1. Clone the repository: `$ git clone https://github.com/maxrumsey/Democracy`
 2. Install dependencies: `$ npm install`
 3. Copy and Fillout the ENV template below: `nano .env`
-4. Run the bot with `$ ndoe bot.js`
+4. Run the bot with `$ node bot.js`
 
 ## Example .env:
 ```
@@ -73,4 +73,5 @@ DB_USER=root
 DB_PASSWORD=admin1234
 DB_NAME=democracy
 OWNER=YOUR.DISCORD.USER.ID
+DBLAPI=DiscordBotListAPIToken
 ```
