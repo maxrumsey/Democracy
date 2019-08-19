@@ -3,6 +3,7 @@
   "about": "Conf",
   "commands": [
     "setChannel",
-    "setConfig"
+    "setConfig",
+    "setup"
   ]
 }
