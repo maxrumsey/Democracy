@@ -21,6 +21,10 @@ module.exports = (msg, command, args) => {
         {
           "name": "d!setConfig",
           "value": "Change a configuration value. [Admin Use Only]\nd!setConfig"
+        },
+        {
+          "name": "d!setup",
+          "value": "Setup the bot for first time use. [Admin Use Only]\nd!setup"
         }
       ]
     },
