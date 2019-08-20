@@ -25,6 +25,14 @@ module.exports = (msg, command, args) => {
         {
           "name": "d!setup",
           "value": "Setup the bot for first time use. [Admin Use Only]\nd!setup"
+        },
+        {
+          "name": "d!listConfig",
+          "value": "List the configuration of the current server.\nd!listConfig"
+        },
+        {
+          "name": "d!wipeRules",
+          "value": "Wipe and delete all the currently active rules. [Admin Use Only]\nd!wipeRules"
         }
       ]
     },
@@ -52,6 +60,10 @@ module.exports = (msg, command, args) => {
         {
           "name": "d!help",
           "value": "View this help document.\nd!help"
+        },
+        {
+          "name": "d!ping",
+          "value": "Pings the bot.\nd!ping"
         }
       ]
     },

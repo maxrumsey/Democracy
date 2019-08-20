@@ -25,6 +25,7 @@ exports.handle = async msg => {
       await global.commands[command](msg, commands, args, config[0]);
     } catch (e) {
       try {
+        await msg.author.channel.send('Oops, I failed to complete that command. Can you confirm I have permission to post in the vote, rule and current channel?')
         await msg.channel.send('Error: ' + e.message);
         console.error(e)
       } catch (f) {

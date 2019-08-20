@@ -4,6 +4,7 @@
   "commands": [
     "about",
     "debug",
-    "help"
+    "help",
+    "ping"
   ]
 }

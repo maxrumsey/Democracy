@@ -16,6 +16,12 @@ d!setConfig
 * d!setup
 Setup and configure the bot for first-time use.  [Admin Use Only]
 d!setup
+* d!listConfig
+List the configuration of the current server.
+d!listConfig
+* d!wipeRules
+Wipe and delete all the currently active rules. [Admin Use Only]
+d!wipeRules
 * d!about
 View information about the bot.
 d!about
@@ -25,6 +31,9 @@ d!debug
 * d!help
 View this help document.
 d!help
+* d!ping
+Pings the bot.
+d!ping
 * d!eval
 Eval a command. [Owner Use Only]
 d!eval

@@ -4,6 +4,8 @@
   "commands": [
     "setChannel",
     "setConfig",
-    "setup"
+    "setup",
+    "wipeRules",
+    "listConfig"
   ]
 }
