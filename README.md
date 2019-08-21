@@ -3,7 +3,7 @@ What is Democracy Bot? Democracy Bot is a bot that aims to make Discord Servers 
 
 |Support Server|Invite Link|
 |---|---|
-|https://discord.gg/Hg4vaKs|[Invite Link](https://discordapp.com/api/oauth2/authorize?client_id=610299806123819018&permissions=76800&scope=bot)|
+|[Support Server Invite Link](https://discord.gg/Hg4vaKs)|[Invite Link](https://discordapp.com/api/oauth2/authorize?client_id=610299806123819018&permissions=76800&scope=bot)|
 
 ## Commands
 * d!setChannel
@@ -65,7 +65,7 @@ In the database, the status of a vote is referred to with an integer from 0 to 5
 - 2: Approved (An approved vote for the creation of a rule)
 - 3: Obsolete (An approved vote for the amendment / changing of a rule)
 - 4: Deleted (Deleted by an administrator)
-- 5: Error-Causing (Not currently In use)
+- 5: Error-Causing
 
 ## Selfhosting
 Selfhosting Democracy Bot is easy. It requires a MySQL database running.

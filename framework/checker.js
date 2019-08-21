@@ -62,7 +62,12 @@ module.exports = async (client) => {
         await global.Database.query('UPDATE `votes` SET status = ? WHERE (vote_id = ?)', [status, votes[i].vote_id])
       }
     } catch (e) {
-      console.log(e)
+      if (e.message.includes('Unknown Message')) {
+        await global.Database.query('UPDATE `votes` SET status = 5 WHERE (vote_id = ?)', [votes[i].vote_id]);
+      } else {
+        console.log(e);
+      }
+      continue;
     }
   }
   //module.exports(client);
