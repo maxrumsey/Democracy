@@ -10,7 +10,7 @@ exports.ready = () => {
 
   setIntervalAsync(
     async () => {await require('./index.js').checker(global.client)},
-    1000
+    10000
   )
 
   if (process.env.DBLAPI) {
@@ -23,6 +23,7 @@ exports.ready = () => {
   }
 }
 exports.join = (guild) => {
+  // Finding channel to post welcome message in.
   let defaultChannel = "";
   guild.channels.forEach((channel) => {
     if(channel.type == "text" && defaultChannel == "") {

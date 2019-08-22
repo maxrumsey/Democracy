@@ -4,12 +4,16 @@ module.exports = async (msg, command, args, config) => {
   const admin = await global.Database.isAdmin(msg.member, config);
   if (!admin) return msg.reply('Sorry, you do not have the administrator role or the Manage Server permission.')
 
+
+  // Getting `key` of config to update
   msg.reply("What item of config do you want to change? <Vote Margin, Vote Time, Admin Role, Prefix>");
   let configItem = await msg.channel.awaitMessages(messageFilter, {
     maxMatches: 1,
     time: 10000
   })
   if (!configItem.first()) return msg.reply('Reply not found.');
+
+  // Sending type of input expected
   const arg = configItem.first().content.toLowerCase();
   if (arg.includes('margin')) {
     msg.reply('This should be a number. Eg:) 1.5 (1.5 yes votes for every 1 no vote.)')
@@ -23,6 +27,7 @@ module.exports = async (msg, command, args, config) => {
     return msg.reply('Config item to change not found.')
   }
 
+  // Getting value
   msg.reply("What value do you want to change it to?");
   let value = await msg.channel.awaitMessages(messageFilter, {
     maxMatches: 1,
@@ -32,6 +37,7 @@ module.exports = async (msg, command, args, config) => {
   value = value.first();
   if (!value) return msg.reply('Reply not found.');
 
+  // Setting value in DB
   if (arg.includes('margin')) {
     if (isNaN(parseFloat(value.content))) return msg.reply('Sorry, that value wasn\'t a number.')
     await global.Database.query('UPDATE `servers` SET vote_margin = ? WHERE (server_id = ?)', [parseFloat(value.content), msg.guild.id])

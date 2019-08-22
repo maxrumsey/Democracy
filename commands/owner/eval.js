@@ -1,6 +1,8 @@
 const discord = require('discord.js');
 module.exports = (msg, command, args) => {
   if (msg.author.id !== process.env.OWNER) return msg.reply('You are unable to execute this command.');
+
+  // https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/examples/making-an-eval-command.md
   try {
     const code = args.join(" ");
     let evaled = eval(code);

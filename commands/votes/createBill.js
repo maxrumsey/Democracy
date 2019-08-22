@@ -11,6 +11,7 @@ module.exports = async (msg, command, args, config) => {
   try {
     const messageFilter = m => m.author.id == msg.author.id;
 
+    // Asking for and determining type of bill (create, amend, remove)
     msg.reply("What type of bill do you want to create? (Reply with the number):\n1)Create Rule\n2)Amend Rule\n3)Remove Rule");
     let typeMessage = await msg.channel.awaitMessages(messageFilter, {
       maxMatches: 1,
@@ -21,6 +22,8 @@ module.exports = async (msg, command, args, config) => {
     if (!["1","2","3"].includes(typeMessage.content)) {
       return msg.reply('Sorry, but that wasn\'t a valid option.');
     }
+
+    // If rule changes / removes another rule:
     let ruleID, ruleContent;
     if (["2", "3"].includes(typeMessage.content)) {
       msg.reply("Please specify the ID of the rule you want to " + types[parseInt(typeMessage.content)] + ".");
@@ -29,6 +32,7 @@ module.exports = async (msg, command, args, config) => {
         time: 60000
       })
       ruleID = ruleID.first();
+      // Checking to ensure rule is active
       let refRule = await global.Database.query("SELECT * FROM `votes` WHERE (server_id = ? AND vote_id = ? AND status = 2)",
         [msg.guild.id, ruleID.content])
       if (!refRule[0]) return msg.reply('Rule not found.')
@@ -36,7 +40,8 @@ module.exports = async (msg, command, args, config) => {
         [msg.guild.id, ruleID.content])
       if (refRule[0]) return msg.reply('A vote is already in progress for this rule.')
     }
-    // TODO: Add verify for rule if it exists.
+
+    // Getting content of rule if it is a creation / amendment
     if (["1", "2"].includes(typeMessage.content)) {
       msg.reply("Please type the content of the rule. Be careful, this requires an amendment to change.");
       ruleContent = await msg.channel.awaitMessages(messageFilter, {
@@ -45,12 +50,15 @@ module.exports = async (msg, command, args, config) => {
       })
       ruleContent = ruleContent.first();
     }
+
+    // Getting reason for changing this
     msg.reply("Please specify your reason for creating/amending/removing this rule.");
     const reason = await msg.channel.awaitMessages(messageFilter, {
       maxMatches: 1,
       time: 60000
     })
 
+    // Constructing embed for vote channel and confirmation message
     const ruleEmbed = {
       description: ruleContent ? 'Rule Content: ' + ruleContent.content : 'Rule Removal of Rule ID: ' + ruleID.content,
       fields: [{
@@ -77,6 +85,7 @@ module.exports = async (msg, command, args, config) => {
       }
     }
 
+    // Getting value of mentioned rule
     if (["2", "3"].includes(typeMessage.content)) {
       let refRule = await global.Database.query("SELECT * FROM `votes` WHERE (server_id = ? AND vote_id = ? AND status = 2)",
         [msg.guild.id, ruleID.content]);
@@ -86,19 +95,23 @@ module.exports = async (msg, command, args, config) => {
       })
     }
 
+    // Confirming message is ok
     await msg.channel.send("Is this ok? Reply with **Yes** to confirm.", {embed: ruleEmbed})
     const confirm = await msg.channel.awaitMessages(messageFilter, {
       maxMatches: 1,
       time: 60000
     })
-
     if (!confirm.first() || !confirm.first().content.includes("Yes")) return msg.reply('Cancelling.')
+
     if (config.channel_vote_id && config.channel_rules_id) {
+      // Adding extra embed options for voting channel
       ruleEmbed.fields.push({
         name: 'Voting',
         value: 'React with ❌ or ✅ to vote!'
       })
+      // Posting message in voting channel
       const votemsg = await msg.client.channels.get(config.channel_vote_id).send({embed: ruleEmbed});
+      // Adding to DB for each type of bill.
       switch (typeMessage.content) {
         case "1":
           await global.Database.query("INSERT INTO `votes` (server_id, message_id, author_id, contents, reason, type, status, created) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
@@ -115,12 +128,14 @@ module.exports = async (msg, command, args, config) => {
         default:
           return msg.reply('Failed to create vote.')
       }
+      // Adding ID of vote to embed and adding reacts
       let id = await global.Database.query("SELECT vote_id FROM `votes` WHERE message_id = ?", [votemsg.id])
       id = id[0].vote_id;
       ruleEmbed.footer.text = 'ID: ' + id + '. ' + ruleEmbed.footer.text;
       votemsg.edit({embed: ruleEmbed});
       await votemsg.react('❌');
       await votemsg.react('✅');
+      // Confirmation message
       await msg.reply("Bill created!")
     } else {
       return msg.reply('The bill could not be created, the bot has not been fully set up. Run ' + config.prefix + 'debug.')

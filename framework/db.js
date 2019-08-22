@@ -2,12 +2,14 @@ const defaultStrings = require('./dbCreations');
 const mysql = require('mysql');
 
 module.exports = () => { return new Promise((resolve, reject) => {
+  // Establishing connection (only done once)
   const connection = mysql.createConnection({
     host     : process.env.DB_HOST,
     user     : process.env.DB_USER,
     password : process.env.DB_PASSWORD,
     database : process.env.DB_NAME
   });
+  // Connecting
   connection.connect(async err => {
     if (err) return reject(err);
     for (var i = 0; i < defaultStrings.length; i++) {
@@ -25,6 +27,7 @@ module.exports = () => { return new Promise((resolve, reject) => {
 
 })}
 
+// Database class for code
 class Database {
   constructor(connection) {
     this.connection = connection;
