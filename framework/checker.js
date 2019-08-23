@@ -15,7 +15,16 @@ module.exports = async (client) => {
       // If ready to be judged
       if (date.isBefore(now)) {
         // Getting number of reacts for vote counting.
-        const message = await client.channels.get(config.channel_vote_id).fetchMessage(votes[i].message_id);
+        let channel1 = client.channels.get(config.channel_vote_id);
+        let channel2 = client.channels.get(config.channel_rules_id);
+
+
+        if (!channel1 || !channel2) {
+          await global.Database.query('UPDATE `votes` SET status = 5 WHERE (vote_id = ?)', [votes[i].vote_id]);
+          continue;
+        }
+
+        const message = await channel1.fetchMessage(votes[i].message_id);
         if (message.reactions.get('✅') == undefined ||
             message.reactions.get('❌') == undefined) continue;
         const counts = {
@@ -35,7 +44,7 @@ module.exports = async (client) => {
         if (result) {
           // Posting vote in vote channel
           message.channel.send(global.Database.action(`Rule '${votes[i].contents || 'Removal of Rule: ' + votes[i].reference_vote_id}' has been approved.`, votes[i]))
-          const rulechannel = client.channels.get(config.channel_rules_id);
+          const rulechannel = channel2;
           if (!rulechannel) return console.log('Rule channel could not be found.')
           let newmessage;
           switch (votes[i].type) {
