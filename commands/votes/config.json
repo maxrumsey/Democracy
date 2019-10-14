@@ -5,6 +5,7 @@
     "createBill",
     "listRules",
     "delete",
-    "veto"
+    "veto",
+    "forceRule"
   ]
 }

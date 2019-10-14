@@ -52,6 +52,9 @@ eg: d!delete 198
 Approve or deny a rule.  [Admin Use Only]
 d!veto <approve | deny> vote_id
 eg: d!veto deny 198
+* d!forceRule
+Instantly add a rule. [Admin Use Only]
+d!forceRule
 
 ## How to get started with the bot
 1. [Invite the bot](https://discordapp.com/api/oauth2/authorize?client_id=610299806123819018&permissions=76800&scope=bot)

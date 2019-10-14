@@ -114,6 +114,10 @@ module.exports = (msg, command, args) => {
         {
           "name": "d!veto",
           "value": "Approve or deny a rule. [Admin Use Only]\nd!veto <approve | deny> vote_id\neg: d!veto deny 198"
+        },
+        {
+          "name": "d!forceRule",
+          "value": "Instantly add a rule. [Admin Use Only]\nd!forceRule"
         }
       ]
     },
