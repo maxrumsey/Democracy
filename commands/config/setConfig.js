@@ -14,6 +14,8 @@ module.exports = async (msg, command, args, config) => {
   })
   if (!configItem.first()) return msg.reply('Reply not found.');
 
+  await msg.reply("What value do you want to change it to?");
+
   // Sending type of input expected
   const arg = configItem.first().content.toLowerCase();
   if (arg.includes('margin')) {
@@ -31,7 +33,6 @@ module.exports = async (msg, command, args, config) => {
   }
 
   // Getting value
-  msg.reply("What value do you want to change it to?");
   let value = await msg.channel.awaitMessages(messageFilter, {
     maxMatches: 1,
     time: 30000

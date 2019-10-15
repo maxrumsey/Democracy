@@ -44,7 +44,7 @@ exports.join = (guild) => {
 exports.guildMemberAdd = async (user) => {
   let config = await global.Database.query("SELECT * FROM `servers` WHERE server_id = ?", user.guild.id);
   config = config[0]
-  if (!config.msg_on_join || user.user.bot) return;
+  if (!config || !config.msg_on_join || user.user.bot) return;
   const channel = user.user;
   const votes = await global.Database.query(`SELECT * FROM \`votes\` WHERE (status = 2 AND server_id = ?)`, [user.guild.id]);
   await channel.send('Rules for **' + user.guild.name + '**:')
