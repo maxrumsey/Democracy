@@ -26,6 +26,10 @@ module.exports = async (msg, command, args, config) => {
       value: config.vote_margin
     },
     {
+      name: "Whether to DM new members the rules",
+      value: config.msg_on_join ? 'Yes' : 'No'
+    },
+    {
       name: "Internal Server ID",
       value: config.id
     }],

@@ -21,6 +21,8 @@ const framework = require('./framework/');
 Client.on('message', framework.handlers.message);
 Client.on('ready', framework.handlers.ready);
 Client.on('guildCreate', framework.handlers.join);
+Client.on('guildMemberAdd', framework.handlers.guildMemberAdd);
+
 Client.on('error', e => {
   console.log(e);
 })

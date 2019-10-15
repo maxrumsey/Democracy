@@ -6,7 +6,7 @@ module.exports = async (msg, command, args, config) => {
 
 
   // Getting `key` of config to update
-  msg.reply("What item of config do you want to change? <Vote Margin, Vote Time, Admin Role, Prefix>");
+  msg.reply("What item of config do you want to change?\nVote Margin, Vote Time, Admin Role, Prefix, Whether to DM on Joind");
   let configItem = await msg.channel.awaitMessages(messageFilter, {
     maxMatches: 1,
     time: 10000
@@ -23,6 +23,8 @@ module.exports = async (msg, command, args, config) => {
     msg.reply('This should be a role. Eg:) @Admins.')
   } else if (arg.includes('prefix')) {
     msg.reply('This should be a number of symbols. Eg:) d!.')
+  } else if (arg.includes('join')) {
+    msg.reply('This should be either yes or no.')
   } else {
     return msg.reply('Config item to change not found.')
   }
@@ -49,6 +51,8 @@ module.exports = async (msg, command, args, config) => {
     await global.Database.query('UPDATE `servers` SET admin_role = ? WHERE (server_id = ?)', [role_id, msg.guild.id])
   } else if (arg.includes('prefix')) {
     await global.Database.query('UPDATE `servers` SET prefix = ? WHERE (server_id = ?)', [value.content, msg.guild.id])
+  } else if (arg.includes('join')) {
+    await global.Database.query('UPDATE `servers` SET msg_on_join = ? WHERE (server_id = ?)', [(value.content === 'yes') ? 1 : 0, msg.guild.id])
   } else {
     return msg.reply('Config item to change not found.')
   }
