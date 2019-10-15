@@ -6,6 +6,7 @@
     "setConfig",
     "setup",
     "wipeRules",
-    "listConfig"
+    "listConfig",
+    "config"
   ]
 }

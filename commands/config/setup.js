@@ -30,5 +30,5 @@ module.exports = async (msg, command, args, config) => {
   if (channel.guild.id != msg.guild.id) return msg.reply('Channel not found.');
   await global.Database.query('UPDATE `servers` SET channel_vote_id = ? WHERE (server_id = ?)', [channel.id, msg.guild.id])
 
-  return msg.reply('Done! Now run `d!help` for a list of commands.')
+  return msg.reply('Done! Now run `d!help` for a list of commands or d!setConfig to change other config values.')
 }

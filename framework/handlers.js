@@ -48,6 +48,9 @@ exports.guildMemberAdd = async (user) => {
   const channel = user.user;
   const votes = await global.Database.query(`SELECT * FROM \`votes\` WHERE (status = 2 AND server_id = ?)`, [user.guild.id]);
   await channel.send('Rules for **' + user.guild.name + '**:')
+  if (config.channel_vote_id && config.channel_rules_id) {
+    await channel.send(`The rules for this server can be found here: <#${config.channel_rules_id}>. For more info send ${config.prefix}help in the server.`)
+  }
   for (var i = 0; i < votes.length; i++) {
     channel.send(global.Database.formatRule(votes[i]));
   }

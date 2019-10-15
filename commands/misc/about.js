@@ -1,7 +1,7 @@
 const discord = require('discord.js');
-module.exports = (msg, command, args) => {
+module.exports = (msg, command, args, config) => {
   const embed = {
-    "description": "Democracy is a bot.",
+    "description": "Democracy is a bot powering democratic Discord servers. It's free to use, and has first class features.",
     "timestamp": new Date(),
     "footer": {
       "icon_url": msg.client.user.avatarURL,
@@ -15,7 +15,11 @@ module.exports = (msg, command, args) => {
     "fields": [
       {
         "name": "Owner",
-        "value": "Darth Maul#2237"
+        "value": "ExiFlame#3685"
+      },
+      {
+        "name": "Help Command",
+        "value": config.prefix + "help"
       },
       {
         "name": "Support Server",

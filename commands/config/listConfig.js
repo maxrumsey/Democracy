@@ -1,6 +1,6 @@
 module.exports = async (msg, command, args, config) => {
   const embed = {
-    description: "Config",
+    description: `Config. To change an item of config send ${config.prefix}setChannel to set the voting or rules channel or ${config.prefix}setConfig to set any another value.`,
     fields: [{
       name: "Votes Channel",
       value: config.channel_vote_id ? `<#${config.channel_vote_id}>` : "Not Found"
