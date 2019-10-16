@@ -1,12 +1,12 @@
 module.exports = async (msg, command, args, config) => {
   const admin = await global.Database.isAdmin(msg.member, config);
-  if (!admin) return msg.reply('Sorry, you do not have the administrator role or the Manage Server permission.')
+  if (!admin) return msg.fail('No Permission', 'Sorry, you do not have the administrator role or the Manage Server permission.')
 
   const messageFilter = m => m.author.id == msg.author.id;
   const rulechannel = msg.client.channels.get(config.channel_rules_id);
 
   try {
-    msg.reply("Please type the content of the rule. Be careful, this requires an amendment to change.");
+    msg.input("Please type the content of the rule. Be careful, this requires an amendment to change.");
     let ruleContent = await msg.channel.awaitMessages(messageFilter, {
       maxMatches: 1,
       time: 60000

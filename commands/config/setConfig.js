@@ -2,19 +2,18 @@ module.exports = async (msg, command, args, config) => {
   const messageFilter = m => m.author.id == msg.author.id;
 
   const admin = await global.Database.isAdmin(msg.member, config);
-  if (!admin) return msg.reply('Sorry, you do not have the administrator role or the Manage Server permission.')
+  if (!admin) return msg.fail('No Permission', 'Sorry, you do not have the administrator role or the Manage Server permission.')
 
 
   // Getting `key` of config to update
-  msg.reply("What item of config do you want to change?\nVote Margin Needed (Margin)\nVote Time (Time)\nAdmin Role (Role)\nPrefix (Prefix)\nShould a DM Be Sent on Joining The Server? (Join)");
-  msg.channel.send('Reply with the item inside the parentheses if you are having trouble.')
+  msg.input("What item of config do you want to change?\nVote Margin Needed (Margin)\nVote Time (Time)\nAdmin Role (Role)\nPrefix (Prefix)\nShould a DM Be Sent on Joining The Server? (Join)\n\nReply with the item inside the parentheses if you are having trouble.");
   let configItem = await msg.channel.awaitMessages(messageFilter, {
     maxMatches: 1,
     time: 30000
   })
   if (!configItem.first()) return msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
 
-  await msg.reply("What value do you want to change it to?");
+  await msg.input("What value do you want to change it to?");
 
   // Sending type of input expected
   const arg = configItem.first().content.toLowerCase();
@@ -39,7 +38,7 @@ module.exports = async (msg, command, args, config) => {
   })
 
   value = value.first();
-  if (!value) return msg.reply('Reply not found.');
+  if (!value) return msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
 
   // Setting value in DB
   if (arg.includes('margin')) {
@@ -56,8 +55,8 @@ module.exports = async (msg, command, args, config) => {
   } else if (arg.includes('join')) {
     await global.Database.query('UPDATE `servers` SET msg_on_join = ? WHERE (server_id = ?)', [(value.content.toLowerCase() === 'yes') ? 1 : 0, msg.guild.id])
   } else {
-    return msg.reply('Config item to change not found.')
+    return msg.msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
   }
 
-  return msg.reply('Updated.')
+  return msg.success()
 }

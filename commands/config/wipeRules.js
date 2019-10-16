@@ -1,6 +1,6 @@
 module.exports = async (msg, command, args, config) => {
   const admin = await global.Database.isAdmin(msg.member, config);
-  if (!admin) return msg.reply('Sorry, you do not have the administrator role or the Manage Server permission.')
+  if (!admin) return msg.fail('No Permission', 'Sorry, you do not have the administrator role or the Manage Server permission.')
 
   // Getting all active rules
   let rules = await global.Database.query(`SELECT * FROM \`votes\` WHERE (status = 2 AND server_id = ?)`,

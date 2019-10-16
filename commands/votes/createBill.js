@@ -12,7 +12,7 @@ module.exports = async (msg, command, args, config) => {
     const messageFilter = m => m.author.id == msg.author.id;
 
     // Asking for and determining type of bill (create, amend, remove)
-    msg.reply("What type of bill do you want to create? (Reply with the number):\n1)Create Rule\n2)Amend Rule\n3)Remove Rule");
+    msg.input("What type of bill do you want to create? (Reply with the number):\n1)Create Rule\n2)Amend Rule\n3)Remove Rule");
     let typeMessage = await msg.channel.awaitMessages(messageFilter, {
       maxMatches: 1,
       time: 10000
@@ -26,7 +26,7 @@ module.exports = async (msg, command, args, config) => {
     // If rule changes / removes another rule:
     let ruleID, ruleContent;
     if (["2", "3"].includes(typeMessage.content)) {
-      msg.reply("Please specify the ID of the rule you want to " + types[parseInt(typeMessage.content)] + ".");
+      msg.input("Please specify the ID of the rule you want to " + types[parseInt(typeMessage.content)] + ".");
       ruleID = await msg.channel.awaitMessages(messageFilter, {
         maxMatches: 1,
         time: 60000
@@ -43,7 +43,7 @@ module.exports = async (msg, command, args, config) => {
 
     // Getting content of rule if it is a creation / amendment
     if (["1", "2"].includes(typeMessage.content)) {
-      msg.reply("Please type the content of the rule. Be careful, this requires an amendment to change.");
+      msg.input("Please type the content of the rule. Be careful, this requires an amendment to change.");
       ruleContent = await msg.channel.awaitMessages(messageFilter, {
         maxMatches: 1,
         time: 60000
@@ -52,7 +52,7 @@ module.exports = async (msg, command, args, config) => {
     }
 
     // Getting reason for changing this
-    msg.reply("Please specify your reason for creating/amending/removing this rule.");
+    msg.input("Please specify your reason for creating/amending/removing this rule.");
     const reason = await msg.channel.awaitMessages(messageFilter, {
       maxMatches: 1,
       time: 60000

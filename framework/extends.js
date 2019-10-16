@@ -43,4 +43,23 @@ module.exports = (msg, config) => {
       }
     })
   }
+  msg.input = text => {
+    msg.channel.send('', {
+      embed: {
+        title: 'Input Required',
+        description: text,
+        color: 15105570,
+        timestamp: new Date(),
+        footer: {
+          icon_url: msg.client.user.avatarURL,
+          text: "Brought to you by Democracy Bot"
+        },
+        author: {
+          name: "Democracy",
+          url: "https://democracy.maxrumsey.xyz",
+          icon_url: msg.client.user.avatarURL
+        },
+      }
+    })
+  }
 }

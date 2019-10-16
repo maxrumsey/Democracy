@@ -2,7 +2,7 @@ module.exports = async (msg, command, args, config) => {
   const messageFilter = m => m.author.id == msg.author.id;
 
   const admin = await global.Database.isAdmin(msg.member, config);
-  if (!admin) return msg.reply('Sorry, you do not have the administrator role or the Manage Server permission.')
+  if (!admin) return msg.fail('No Permission', 'Sorry, you do not have the administrator role or the Manage Server permission.')
 
   // Rules Channel
   msg.reply("What channel do you want rules to appear in?");

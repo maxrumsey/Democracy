@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 module.exports = (msg, command, args) => {
-  if (msg.author.id !== process.env.OWNER) return msg.reply('You are unable to execute this command.');
+  if (msg.author.id !== process.env.OWNER) return msg.fail('No Permission', 'You are unable to execute this command.');
 
   // https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/examples/making-an-eval-command.md
   try {
