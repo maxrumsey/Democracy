@@ -11,10 +11,10 @@ module.exports = async (msg, command, args, config) => {
     time: 10000
   })
   rulesChannel = rulesChannel.first();
-  if (!rulesChannel) return msg.reply('Cancelling.')
+  if (!rulesChannel) return msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
   let channel = rulesChannel.mentions.channels.first()
-  if (!channel) return msg.reply('Channel not found.')
-  if (channel.guild.id != msg.guild.id) return msg.reply('Channel not found.');
+  if (!channel) return msg.fail('Channel not found', 'The channel specifed could not be found in this Discord server.');
+  if (channel.guild.id != msg.guild.id) return msg.fail('Channel not found', 'The channel specifed could not be found in this Discord server.');
   await global.Database.query('UPDATE `servers` SET channel_rules_id = ? WHERE (server_id = ?)', [channel.id, msg.guild.id])
 
   // Voting Channel
@@ -24,10 +24,10 @@ module.exports = async (msg, command, args, config) => {
     time: 10000
   })
   votesChannel = votesChannel.first();
-  if (!votesChannel) return msg.reply('Cancelling.')
+  if (!votesChannel) return msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
   channel = votesChannel.mentions.channels.first()
-  if (!channel) return msg.reply('Channel not found.')
-  if (channel.guild.id != msg.guild.id) return msg.reply('Channel not found.');
+  if (!channel) return msg.fail('Channel not found', 'The channel specifed could not be found in this Discord server.');
+  if (channel.guild.id != msg.guild.id) return msg.fail('Channel not found', 'The channel specifed could not be found in this Discord server.');
   await global.Database.query('UPDATE `servers` SET channel_vote_id = ? WHERE (server_id = ?)', [channel.id, msg.guild.id])
 
   return msg.reply('Done! Now run `d!help` for a list of commands or d!setConfig to change other config values.')

@@ -19,5 +19,5 @@ module.exports = async (msg, command, args, config) => {
   // Deleting from DB.
   await global.Database.query('UPDATE `votes` SET status = 4 WHERE (server_id = ?)', [msg.guild.id])
 
-  return msg.reply('Rules wiped from database and deleted.')
+  return msg.success('Rules successfully wiped from database and deleted.')
 }

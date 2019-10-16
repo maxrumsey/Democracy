@@ -1,3 +1,4 @@
+const extended = require('./extends.js')
 exports.handle = async msg => {
   // Reccommended return options
   if (msg.author.bot) return;
@@ -29,6 +30,7 @@ exports.handle = async msg => {
   if (global.commands[command]) {
     let args = msg.content.split(' ');
     args.shift();
+    extended(msg, config[0])
     try {
       await global.commands[command](msg, commands, args, config[0]);
     } catch (e) {

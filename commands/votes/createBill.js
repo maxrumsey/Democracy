@@ -20,7 +20,7 @@ module.exports = async (msg, command, args, config) => {
     typeMessage = typeMessage.first();
     if (!typeMessage) return;
     if (!["1","2","3"].includes(typeMessage.content)) {
-      return msg.reply('Sorry, but that wasn\'t a valid option.');
+      return msg.fail('Incorrect Option', 'You specifed an incorrect option. The options available were `1`, `2`, or `3`.')
     }
 
     // If rule changes / removes another rule:
@@ -35,10 +35,10 @@ module.exports = async (msg, command, args, config) => {
       // Checking to ensure rule is active
       let refRule = await global.Database.query("SELECT * FROM `votes` WHERE (server_id = ? AND vote_id = ? AND status = 2)",
         [msg.guild.id, ruleID.content])
-      if (!refRule[0]) return msg.reply('Rule not found.')
+      if (!refRule[0]) return msg.fail('Not found', 'Sorry, the rule couldn\'t be found. Are you sure you entered the ID correctly?');
       refRule = await global.Database.query("SELECT * FROM `votes` WHERE (server_id = ? AND reference_vote_id = ? AND status = 0)",
         [msg.guild.id, ruleID.content])
-      if (refRule[0]) return msg.reply('A vote is already in progress for this rule.')
+      if (refRule[0]) return msg.fail('Unable to create vote', 'A vote is already in progress for this rule.')
     }
 
     // Getting content of rule if it is a creation / amendment
@@ -61,6 +61,7 @@ module.exports = async (msg, command, args, config) => {
     // Constructing embed for vote channel and confirmation message
     const ruleEmbed = {
       description: ruleContent ? 'Rule Content: ' + ruleContent.content : 'Rule Removal of Rule ID: ' + ruleID.content,
+      color: 16777215,
       fields: [{
         name: "Action",
         value: types[parseInt(typeMessage.content)] + ' Rule'
@@ -101,7 +102,7 @@ module.exports = async (msg, command, args, config) => {
       maxMatches: 1,
       time: 60000
     })
-    if (!confirm.first() || !confirm.first().content.includes("Yes")) return msg.reply('Cancelling.')
+    if (!confirm.first() || !confirm.first().content.includes("Yes")) return msg.success('Cancelling.')
 
     if (config.channel_vote_id && config.channel_rules_id) {
       // Adding extra embed options for voting channel
@@ -126,7 +127,7 @@ module.exports = async (msg, command, args, config) => {
             [msg.guild.id, votemsg.id, msg.author.id, reason.first().content, 'remove', 0, ruleID.content, new Date() ])
           break;
         default:
-          return msg.reply('Failed to create vote.')
+          return;
       }
       // Adding ID of vote to embed and adding reacts
       let id = await global.Database.query("SELECT vote_id FROM `votes` WHERE message_id = ?", [votemsg.id])
@@ -136,9 +137,9 @@ module.exports = async (msg, command, args, config) => {
       await votemsg.react('❌');
       await votemsg.react('✅');
       // Confirmation message
-      await msg.reply("Bill created!")
+      await msg.success("Bill created!")
     } else {
-      return msg.reply('The bill could not be created, the bot has not been fully set up. Run ' + config.prefix + 'debug.')
+      return msg.fail('Setup needed', 'The bill could not be created, the bot has not been fully set up. Run ' + config.prefix + 'debug to see what you are missing and ' + config.prefix + 'setup to setup the bot.')
     }
   } catch (e) {
     console.log(e);

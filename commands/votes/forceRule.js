@@ -16,7 +16,7 @@ module.exports = async (msg, command, args, config) => {
     let reason = {content: ''}
 
     if (!reason || !ruleContent) {
-      return msg.channel.send('One or more values are missing. Are you sure you replied to the messages above?')
+      return msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
     }
 
     await global.Database.query("INSERT INTO `votes` (server_id, message_id, author_id, contents, reason, type, status, created) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
@@ -30,6 +30,7 @@ module.exports = async (msg, command, args, config) => {
 
     let newmessage = await rulechannel.send(global.Database.formatRule(vote))
     await global.Database.query('UPDATE `votes` SET message_id = ? WHERE (vote_id = ?)', [newmessage.id, vote.vote_id])
+    msg.success()
   } catch (e) {
     console.log(e)
   }

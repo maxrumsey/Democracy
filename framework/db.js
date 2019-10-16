@@ -44,6 +44,7 @@ class Database {
   formatRule(vote) {
     const embed = {
       description: vote.contents,
+      color: 16777215,
       timestamp: new Date(),
       footer: {
         text: "ID: " + vote.vote_id + ". Brought to you by Democracy Bot"
@@ -58,6 +59,7 @@ class Database {
   action(text, vote) {
     const embed = {
       description: text,
+      color: 16777215,
       timestamp: new Date(),
       footer: {
         text: "ID: " + vote.vote_id + ". Brought to you by Democracy Bot"

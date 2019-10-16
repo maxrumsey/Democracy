@@ -6,7 +6,7 @@ module.exports = async (msg, command, args, config) => {
   let vote = await global.Database.query(`SELECT * FROM \`votes\` WHERE (status = 0 AND server_id = ? AND vote_id = ?)`,
     [msg.guild.id, args[1]])
 
-  if (!vote[0]) return msg.reply('Sorry, the vote couldn\'t be found.');
+  if (!vote[0]) return msg.fail('Not found', 'Sorry, the rule couldn\'t be found. Are you sure you entered the ID correctly?');
   vote = vote[0];
 
   // Getting vote message
@@ -57,7 +57,7 @@ module.exports = async (msg, command, args, config) => {
     status = 1;
     message.channel.send(global.Database.action(`Rule '${vote.contents || 'Removal of Rule: ' + vote.reference_vote_id}' has been veto-denied.`, vote))
   } else {
-    return msg.reply('Sorry, you can only **deny** or **approve** a vote.')
+    return msg.fail('Incorrect Value', 'Sorry, you can only **deny** or **approve** a vote.')
   }
   // Updating DB
   await global.Database.query('UPDATE `votes` SET status = ? WHERE (vote_id = ?)', [status, vote.vote_id])

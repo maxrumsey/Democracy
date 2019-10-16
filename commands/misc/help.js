@@ -3,6 +3,7 @@ module.exports = (msg, command, args) => {
   const embeds = [
     {
       "description": "Config Commands",
+      color: 16777215,
       "timestamp": new Date(),
       "footer": {
         "icon_url": msg.client.user.avatarURL,
@@ -38,6 +39,7 @@ module.exports = (msg, command, args) => {
     },
     {
       "description": "Miscellanous Commands",
+      color: 16777215,
       "timestamp": new Date(),
       "footer": {
         "icon_url": msg.client.user.avatarURL,
@@ -69,6 +71,7 @@ module.exports = (msg, command, args) => {
     },
     {
       "description": "Owner Commands",
+      color: 16777215,
       "timestamp": new Date(),
       "footer": {
         "icon_url": msg.client.user.avatarURL,
@@ -88,6 +91,7 @@ module.exports = (msg, command, args) => {
     },
     {
       "description": "Voting Commands",
+      color: 16777215,
       "timestamp": new Date(),
       "footer": {
         "icon_url": msg.client.user.avatarURL,

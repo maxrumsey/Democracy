@@ -10,9 +10,9 @@ module.exports = async (msg, command, args, config) => {
   msg.channel.send('Reply with the item inside the parentheses if you are having trouble.')
   let configItem = await msg.channel.awaitMessages(messageFilter, {
     maxMatches: 1,
-    time: 10000
+    time: 30000
   })
-  if (!configItem.first()) return msg.reply('Reply not found.');
+  if (!configItem.first()) return msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
 
   await msg.reply("What value do you want to change it to?");
 
@@ -29,7 +29,7 @@ module.exports = async (msg, command, args, config) => {
   } else if (arg.includes('join')) {
     msg.reply('This should be either **yes** or **no**.')
   } else {
-    return msg.reply('Config item to change not found.')
+    return msg.fail('Missing Values', 'One or more values are missing. Are you sure you replied to the messages above?')
   }
 
   // Getting value
