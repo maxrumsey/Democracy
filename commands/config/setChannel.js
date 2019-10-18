@@ -16,5 +16,5 @@ module.exports = async (msg, command, args, config) => {
     return msg.fail('Incorrect Input', 'The type of channel can only be **vote** or **rules**.')
   }
 
-  return msg.reply('Updated.')
+  return msg.success('Channel updated.')
 }

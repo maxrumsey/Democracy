@@ -127,7 +127,7 @@ module.exports = (msg, command, args) => {
     },
   ]
 
-  msg.reply('Check your DMs.')
+  msg.success('Check your DMs.')
   for (var i = 0; i < embeds.length; i++) {
     msg.author.send({embed: embeds[i]});
   }
