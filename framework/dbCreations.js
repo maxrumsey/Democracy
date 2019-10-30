@@ -9,6 +9,7 @@ module.exports = [
     channel_vote_id TEXT,
     channel_rules_id TEXT,
     msg_on_join TINYINT(1) DEFAULT 0,
+    disabled TINYINT(1) DEFAULT 0,
     PRIMARY KEY (id)
   )`,
   `CREATE TABLE IF NOT EXISTS votes (
